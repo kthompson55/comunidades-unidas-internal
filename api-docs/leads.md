@@ -89,15 +89,15 @@ If there is no lead with the provided id, you will get a 404 HTTP response, with
 ### Request
 
 ```http
-GET /api/leads?page=12
+GET /api/leads?name=John&page=1
 ```
 
-**_Notes_**
+**NOTES:**
 
-- Result is limited to 100 rows ordered by lastName and then firstName
 - Values for the query should be URL encoded
 - "page" query parameter defaults to 1
-- If no search terms are provided, the top 100 rows will be returned ordered by lastName, firstName
+- "name" can be partial
+- If no search terms are provided, the top 100 rows will be returned
 
 ### Response
 
@@ -105,7 +105,6 @@ GET /api/leads?page=12
 {
   "leads": [
     {
-      "id": 1,
       "dateOfSignUp": "2019-09-17",
       "leadStatus": "active",
       "contactStage": {
@@ -113,125 +112,17 @@ GET /api/leads?page=12
         "second": null,
         "third": null
       },
-      "inactivityReason": null,
-      "eventSources": [
-        {
-          "eventId": 1,
-          "eventName": "Health Fair",
-          "eventLocation": "Saint Marks"
-        }
-      ],
-      "firstName": "Harry",
-      "lastName": "Potter",
-      "fullName": "Harry Potter",
-      "phone": "5555555555",
-      "smsConsent": false,
-      "zip": "84115",
-      "age": 39,
-      "gender": "male",
-      "leadServices": [
-        {
-          "id": 1,
-          "serviceName": "Citizenship"
-        }
-      ],
-      "clientId": 1,
-      "isDeleted": false,
-      "clientId": 1,
-      "createdBy": {
-        "userId": 1,
-        "firstName": "Joel",
-        "lastName": "Denning",
-        "fullName": "Joel Denning",
-        "timestamp": "2019-05-06T06:00:00.000Z"
-      },
-      "lastUpdatedBy": {
-        "userId": 1,
-        "firstName": "Joel",
-        "lastName": "Denning",
-        "fullName": "Joel Denning",
-        "timestamp": "2019-05-06T06:00:00.000Z"
-      }
-    },
-    {
-      "id": 2,
-      "dateOfSignUp": "2019-09-17",
-      "leadStatus": "active",
-      "contactStage": {
-        "first": "2019-05-06T06:00:00.000Z",
-        "second": null,
-        "third": null
-      },
-      "inactivityReason": null,
-      "eventSources": [
-        {
-          "eventId": 1,
-          "eventName": "Health Fair",
-          "eventLocation": "Saint Marks"
-        }
-      ],
-      "firstName": "Hermione",
-      "lastName": "Granger",
-      "fullName": "Hermione Granger",
+      "eventSources": [1],
+      "firstName": "Joel",
+      "lastName": "Denning",
+      "fullName": "Joel Denning",
       "phone": "5555555555",
       "smsConsent": true,
       "zip": "84115",
-      "age": 40,
-      "gender": "female",
-      "leadServices": [
-        {
-          "id": 1,
-          "serviceName": "Citizenship"
-        }
-      ],
-      "clientId": 1,
-      "isDeleted": false,
-      "createdBy": {
-        "userId": 1,
-        "firstName": "Joel",
-        "lastName": "Denning",
-        "fullName": "Joel Denning",
-        "timestamp": "2019-05-06T06:00:00.000Z"
-      },
-      "lastUpdatedBy": {
-        "userId": 1,
-        "firstName": "Joel",
-        "lastName": "Denning",
-        "fullName": "Joel Denning",
-        "timestamp": "2019-05-06T06:00:00.000Z"
-      }
-    },
-    {
-      "id": 3,
-      "dateOfSignUp": "2019-09-17",
-      "leadStatus": "active",
-      "contactStage": {
-        "first": "2019-05-06T06:00:00.000Z",
-        "second": null,
-        "third": null
-      },
-      "inactivityReason": null,
-      "eventSources": [
-        {
-          "eventId": 1,
-          "eventName": "Health Fair",
-          "eventLocation": "Saint Marks"
-        }
-      ],
-      "firstName": "Ron",
-      "lastName": "Weasley",
-      "fullName": "Ron Weasley",
-      "phone": "5555555555",
-      "smsConsent": true,
-      "zip": "84115",
-      "age": 39,
+      "age": 25,
       "gender": "male",
-      "leadServices": [
-        {
-          "id": 1,
-          "serviceName": "Citizenship"
-        }
-      ]
+      "leadServices": [2, 4 6],
+      "clientId": 1
     }
   ],
   "pagination": {
@@ -243,7 +134,7 @@ GET /api/leads?page=12
 }
 ```
 
-## Create a single Lead
+## Create Leads
 
 ### Request
 
@@ -252,26 +143,44 @@ POST /api/leads
 ```
 
 ```json
-{
-  "dateOfSignUp": "2019-09-17",
-  "leadStatus": "active",
-  "contactStage": {
-    "first": "2019-05-06T06:00:00.000Z",
-    "second": null,
-    "third": null
+[
+  {
+    "dateOfSignUp": "2019-09-17",
+    "firstName": "Jone",
+    "lastName": "Doe",
+    "phone": "5555555555",
+    "smsConsent": false,
+    "zip": "84115",
+    "age": 25,
+    "gender": "male",
+    "eventSources": [1],
+    "leadServices": [1, 5, 8]
   },
-  "eventSources": [1],
-  "firstName": "Joel",
-  "lastName": "Denning",
-  "fullName": "Joel Denning",
-  "phone": "5555555555",
-  "smsConsent": false,
-  "zip": "84115",
-  "age": 25,
-  "gender": "male",
-  "leadServices": [1, 5, 8],
-  "clientId": 1
-}
+  {
+    "dateOfSignUp": "2019-09-17",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "phone": "5555555555",
+    "smsConsent": false,
+    "zip": "84115",
+    "age": 25,
+    "gender": "male",
+    "eventSources": [1],
+    "leadServices": [28]
+  },
+  {
+    "dateOfSignUp": "2019-09-17",
+    "firstName": "Jake",
+    "lastName": "Doe",
+    "phone": "5555555555",
+    "smsConsent": true,
+    "zip": "84115",
+    "age": 25,
+    "gender": "male",
+    "eventSources": [1],
+    "leadServices": [20, 35, 18]
+  }
+]
 ```
 
 ### Response
@@ -282,52 +191,7 @@ The response object will be the same as if you do a `GET /api/leads/:id`
 
 ```json
 {
-  "id": 1,
-  "dateOfSignUp": "2019-09-17",
-  "leadStatus": "active",
-  "contactStage": {
-    "first": "2019-05-06T06:00:00.000Z",
-    "second": null,
-    "third": null
-  },
-  "inactivityReason": null,
-  "eventSources": [
-    {
-      "eventId": 1,
-      "eventName": "Health Fair",
-      "eventLocation": "Saint Marks"
-    }
-  ],
-  "firstName": "Joel",
-  "lastName": "Denning",
-  "fullName": "Joel Denning",
-  "phone": "5555555555",
-  "smsConsent": true,
-  "zip": "84115",
-  "age": 25,
-  "gender": "male",
-  "leadServices": [
-    {
-      "id": 1,
-      "serviceName": "Citizenship"
-    }
-  ],
-  "clientId": 1,
-  "isDeleted": false,
-  "createdBy": {
-    "userId": 1,
-    "firstName": "Joel",
-    "lastName": "Denning",
-    "fullName": "Joel Denning",
-    "timestamp": "2019-05-06T06:00:00.000Z"
-  },
-  "lastUpdatedBy": {
-    "userId": 1,
-    "firstName": "Joel",
-    "lastName": "Denning",
-    "fullName": "Joel Denning",
-    "timestamp": "2019-05-06T06:00:00.000Z"
-  }
+  "Created leads 1, 2, 3."
 }
 ```
 
